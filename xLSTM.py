@@ -19,6 +19,8 @@ class xLSTM(nn.Module):
       scfg.__post_init__()
     if mcfg is not None:
       mcfg.__post_init__()
+    if fcfg is not None:
+      fcfg.__post_init__()
     for i in range(len(layers)):
       self.xlstm_norm.append(ln.LayerNorm(ndim=embedding_dim, weight=True, bias=False))
       if layers[i] == 's':
