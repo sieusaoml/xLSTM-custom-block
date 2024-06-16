@@ -1,31 +1,10 @@
 import torch
 from torch import nn
 import xlstm
-from xlstm import (
-    mLSTMLayerConfig,
-    sLSTMLayerConfig,
-    FeedForwardConfig,
-)
 from xlstm.blocks.slstm.layer import sLSTMLayer
 from xlstm.blocks.mlstm.layer import mLSTMLayer
 from xlstm.components.feedforward import create_feedforward
 import xlstm.components.ln as ln
-
-scfg = sLSTMLayerConfig(
-        embedding_dim=22,
-        backend="vanilla",
-        num_heads=11,
-        conv1d_kernel_size=4,
-        bias_init="powerlaw_blockdependent",
-)
-mcfg=mLSTMLayerConfig(
-    proj_factor=1,
-    round_proj_up_to_multiple_of=1,
-    embedding_dim=22,
-    context_length=1,
-    conv1d_kernel_size=3, qkv_proj_blocksize=4, num_heads=4
-)
-fcfg = FeedForwardConfig(embedding_dim=22, act_fn="gelu")
 
 class xLSTM(nn.Module):
   def __init__(self, layers, scfg=None, mcfg=None, fcfg=None):
