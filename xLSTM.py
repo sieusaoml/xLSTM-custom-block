@@ -24,6 +24,10 @@ class xLSTM(nn.Module):
       self.ffn_norm.append(ln.LayerNorm(ndim=embedding_dim, weight=True, bias=False))
       self.ffn.append(create_feedforward(fcfg))
     self.post_blocks_norm = ln.LayerNorm(ndim=embedding_dim)
+    if scfg is not None:
+      scfg.__post_init__()
+    if mcfg is not None:
+      mcfg.__post_init__()
     self.reset_parameters()
 
   def forward(self, x, hidden):
@@ -44,3 +48,4 @@ class xLSTM(nn.Module):
       self.xlstm_blocks[i].reset_parameters()
       self.ffn_norm[i].reset_parameters()
       self.ffn[i].reset_parameters()
+    self.post_blocks_norm.reset_parameters()
